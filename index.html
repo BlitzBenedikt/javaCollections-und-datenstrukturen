@@ -1,0 +1,569 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Java Collections und Datenstrukturen</title>
+    <style>
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            line-height: 1.6;
+            color: #333;
+            max-width: 900px;
+            margin: 0 auto;
+            padding: 20px;
+        }
+        h1 {
+            color: #2c3e50;
+            border-bottom: 2px solid #3498db;
+            padding-bottom: 10px;
+        }
+        h2 {
+            color: #2980b9;
+            margin-top: 30px;
+        }
+        h3 {
+            color: #16a085;
+        }
+        .aufgabe {
+            background-color: #f8f9fa;
+            border-left: 4px solid #e74c3c;
+            padding: 15px;
+            margin: 20px 0;
+            border-radius: 4px;
+        }
+        .aufgabe h3 {
+            color: #e74c3c;
+            margin-top: 0;
+        }
+        .anleitung {
+            background-color: #eafaf1;
+            border-left: 4px solid #27ae60;
+            padding: 15px;
+            margin: 20px 0;
+            border-radius: 4px;
+        }
+        pre {
+            background-color: #f1f1f1;
+            padding: 15px;
+            border-radius: 5px;
+            overflow-x: auto;
+        }
+        code {
+            font-family: Consolas, Monaco, 'Andale Mono', monospace;
+            color: #16a085;
+        }
+        .tipp {
+            background-color: #e8f4fc;
+            border-left: 4px solid #3498db;
+            padding: 10px;
+            margin: 15px 0;
+        }
+        .fortgeschritten {
+            background-color: #f9e7f9;
+            border-left: 4px solid #8e44ad;
+            padding: 15px;
+            margin: 20px 0;
+            border-radius: 4px;
+        }
+        .fortgeschritten h3 {
+            color: #8e44ad;
+            margin-top: 0;
+        }
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin: 20px 0;
+        }
+        th, td {
+            padding: 10px;
+            border: 1px solid #ddd;
+            text-align: left;
+        }
+        th {
+            background-color: #f2f2f2;
+        }
+    </style>
+</head>
+<body>
+    <h1>Java Collections und Datenstrukturen</h1>
+    
+    <p>In dieser Lektion lernst du die wichtigsten Datenstrukturen und Collections in Java kennen. Collections sind Sammlungen von Objekten, die es dir ermöglichen, Daten effizient zu speichern, zu organisieren und zu manipulieren.</p>
+    
+    <h2>Inhaltsverzeichnis</h2>
+    <ol>
+        <li><a href="#listen">Listen: ArrayList und LinkedList</a></li>
+        <li><a href="#sets">Sets: HashSet und TreeSet</a></li>
+        <li><a href="#maps">Maps: HashMap und TreeMap</a></li>
+        <li><a href="#methoden">Wichtige Collection-Methoden</a></li>
+        <li><a href="#fortgeschritten">Fortgeschrittene Aufgaben</a></li>
+    </ol>
+
+    <h2 id="listen">1. Listen: ArrayList und LinkedList</h2>
+    
+    <p>Listen sind geordnete Collections, in denen Elemente doppelt vorkommen können. Es gibt zwei Hauptimplementierungen: <code>ArrayList</code> und <code>LinkedList</code>.</p>
+    
+    <table>
+        <tr>
+            <th>ArrayList</th>
+            <th>LinkedList</th>
+        </tr>
+        <tr>
+            <td>Basiert auf einem dynamischen Array</td>
+            <td>Basiert auf einer verketteten Liste</td>
+        </tr>
+        <tr>
+            <td>Schneller Zugriff auf Elemente per Index</td>
+            <td>Langsamer Zugriff auf Elemente per Index</td>
+        </tr>
+        <tr>
+            <td>Langsamer beim Einfügen/Löschen in der Mitte</td>
+            <td>Schneller beim Einfügen/Löschen in der Mitte</td>
+        </tr>
+    </table>
+
+    <pre><code>// ArrayList erstellen
+ArrayList&lt;String&gt; namenListe = new ArrayList&lt;&gt;();
+
+// Elemente hinzufügen
+namenListe.add("Anna");
+namenListe.add("Ben");
+namenListe.add("Clara");
+
+// Element an bestimmter Position einfügen
+namenListe.add(1, "David");  // Fügt "David" an Position 1 ein
+
+// Auf Elemente zugreifen
+String ersterName = namenListe.get(0);  // "Anna"
+
+// Elemente entfernen
+namenListe.remove("Ben");  // Entfernt "Ben"
+namenListe.remove(0);      // Entfernt erstes Element
+
+// Größe einer Liste
+int anzahl = namenListe.size();
+
+// Prüfen, ob ein Element enthalten ist
+boolean enthalten = namenListe.contains("Clara");  // true
+
+// Durch eine Liste iterieren
+for (String name : namenListe) {
+    System.out.println(name);
+}</code></pre>
+
+    <div class="anleitung">
+        <h3>Schritt-für-Schritt: Erstellen und Verwenden einer ArrayList</h3>
+        <ol>
+            <li>Importiere die ArrayList-Klasse: <code>import java.util.ArrayList;</code></li>
+            <li>Erstelle eine ArrayList für den gewünschten Datentyp: <code>ArrayList&lt;Typ&gt; listenName = new ArrayList&lt;&gt;();</code></li>
+            <li>Füge Elemente hinzu mit <code>add()</code></li>
+            <li>Greife auf Elemente zu mit <code>get(index)</code></li>
+            <li>Aktualisiere Elemente mit <code>set(index, neuesElement)</code></li>
+            <li>Entferne Elemente mit <code>remove()</code></li>
+        </ol>
+    </div>
+
+    <div class="aufgabe">
+        <h3>Aufgabe 1: Einkaufsliste</h3>
+        <p>Erstelle eine Einkaufsliste mit ArrayList und implementiere folgende Funktionen:</p>
+        <ol>
+            <li>Füge mindestens 5 Artikel zur Einkaufsliste hinzu</li>
+            <li>Gib die gesamte Einkaufsliste aus</li>
+            <li>Prüfe, ob "Milch" auf der Liste steht</li>
+            <li>Füge an Position 2 einen neuen Artikel ein</li>
+            <li>Entferne den ersten Artikel von der Liste</li>
+            <li>Gib die aktualisierte Liste und deren Größe aus</li>
+        </ol>
+        
+        <p>Hier ist ein Gerüst zum Starten:</p>
+<pre><code>import java.util.ArrayList;
+
+public class Einkaufsliste {
+    public static void main(String[] args) {
+        // Erstelle eine ArrayList für Strings
+        ArrayList&lt;String&gt; einkaufsliste = new ArrayList&lt;&gt;();
+        
+        // TODO: Füge Artikel hinzu
+        
+        // TODO: Gib die Liste aus
+        
+        // TODO: Prüfe, ob "Milch" enthalten ist
+        
+        // TODO: Füge an Position 2 einen Artikel ein
+        
+        // TODO: Entferne den ersten Artikel
+        
+        // TODO: Gib die aktualisierte Liste aus
+    }
+}</code></pre>
+    </div>
+
+    <div class="tipp">
+        <p><strong>Tipp:</strong> LinkedList ist besser geeignet, wenn du häufig Elemente am Anfang oder in der Mitte einfügen oder entfernen musst. ArrayList ist effizienter, wenn du hauptsächlich per Index auf Elemente zugreifst.</p>
+    </div>
+
+    <h2 id="sets">2. Sets: HashSet und TreeSet</h2>
+    
+    <p>Sets sind Collections, die <strong>keine doppelten Elemente</strong> enthalten. Die zwei wichtigsten Implementierungen sind:</p>
+    
+    <table>
+        <tr>
+            <th>HashSet</th>
+            <th>TreeSet</th>
+        </tr>
+        <tr>
+            <td>Unsortierte Menge von Elementen</td>
+            <td>Sortierte Menge von Elementen</td>
+        </tr>
+        <tr>
+            <td>Sehr schnell bei allen Operationen</td>
+            <td>Etwas langsamer, aber sortiert</td>
+        </tr>
+    </table>
+
+    <pre><code>// HashSet erstellen
+HashSet&lt;Integer&gt; zahlen = new HashSet&lt;&gt;();
+
+// Elemente hinzufügen
+zahlen.add(5);
+zahlen.add(10);
+zahlen.add(15);
+zahlen.add(5);  // Wird ignoriert, da 5 bereits enthalten ist
+
+System.out.println(zahlen);  // [5, 10, 15]
+
+// TreeSet für sortierte Elemente
+TreeSet&lt;String&gt; sortierteNamen = new TreeSet&lt;&gt;();
+sortierteNamen.add("Max");
+sortierteNamen.add("Anna");
+sortierteNamen.add("Ben");
+
+System.out.println(sortierteNamen);  // [Anna, Ben, Max]</code></pre>
+
+    <div class="anleitung">
+        <h3>Schritt-für-Schritt: Arbeiten mit Sets</h3>
+        <ol>
+            <li>Importiere die Set-Klassen: <code>import java.util.HashSet;</code> oder <code>import java.util.TreeSet;</code></li>
+            <li>Erstelle ein Set: <code>HashSet&lt;Typ&gt; setName = new HashSet&lt;&gt;();</code></li>
+            <li>Füge Elemente hinzu mit <code>add()</code></li>
+            <li>Prüfe Enthaltensein mit <code>contains()</code></li>
+            <li>Entferne Elemente mit <code>remove()</code></li>
+            <li>Iteriere durch das Set mit einer for-each Schleife</li>
+        </ol>
+    </div>
+
+    <div class="aufgabe">
+        <h3>Aufgabe 2: Eindeutige Zahlen</h3>
+        <p>In dieser Aufgabe sollst du Sets verwenden, um eindeutige Zahlen zu verarbeiten:</p>
+        <ol>
+            <li>Erstelle ein HashSet für Integer-Werte</li>
+            <li>Füge folgende Zahlen hinzu: 3, 7, 2, 5, 3, 7, 9, 5</li>
+            <li>Gib das Set aus und beobachte, dass Duplikate automatisch entfernt wurden</li>
+            <li>Erstelle ein TreeSet mit denselben Zahlen</li>
+            <li>Vergleiche die Ausgabe des TreeSets mit dem HashSet</li>
+            <li>Prüfe, ob die Zahl 10 in deinem Set enthalten ist</li>
+        </ol>
+        
+        <p>Hier ist ein Gerüst zum Starten:</p>
+<pre><code>import java.util.HashSet;
+import java.util.TreeSet;
+import java.util.Set;
+
+public class EindeutigeZahlen {
+    public static void main(String[] args) {
+        // TODO: Erstelle ein HashSet und füge die Zahlen hinzu
+        
+        // TODO: Gib das HashSet aus
+        
+        // TODO: Erstelle ein TreeSet mit denselben Zahlen
+        
+        // TODO: Gib das TreeSet aus und vergleiche
+        
+        // TODO: Prüfe, ob die Zahl 10 enthalten ist
+    }
+}</code></pre>
+    </div>
+
+    <h2 id="maps">3. Maps: HashMap und TreeMap</h2>
+    
+    <p>Maps speichern Schlüssel-Wert-Paare. Jeder Schlüssel ist eindeutig und mit einem Wert verknüpft.</p>
+    
+    <table>
+        <tr>
+            <th>HashMap</th>
+            <th>TreeMap</th>
+        </tr>
+        <tr>
+            <td>Unsortiert</td>
+            <td>Nach Schlüsseln sortiert</td>
+        </tr>
+        <tr>
+            <td>Schnellere Operationen</td>
+            <td>Etwas langsamer, aber sortiert</td>
+        </tr>
+    </table>
+
+    <pre><code>// HashMap erstellen
+HashMap&lt;String, Integer&gt; altersMap = new HashMap&lt;&gt;();
+
+// Schlüssel-Wert-Paare hinzufügen
+altersMap.put("Anna", 25);
+altersMap.put("Ben", 30);
+altersMap.put("Clara", 22);
+
+// Wert über Schlüssel abrufen
+int annasAlter = altersMap.get("Anna");  // 25
+
+// Prüfen, ob ein Schlüssel existiert
+boolean benExistiert = altersMap.containsKey("Ben");  // true
+
+// Durch die Map iterieren
+for (String name : altersMap.keySet()) {
+    System.out.println(name + " ist " + altersMap.get(name) + " Jahre alt.");
+}
+
+// Alle Werte durchlaufen
+for (int alter : altersMap.values()) {
+    System.out.println("Alter: " + alter);
+}
+
+// Schlüssel-Wert-Paare durchlaufen
+for (Map.Entry&lt;String, Integer&gt; eintrag : altersMap.entrySet()) {
+    System.out.println(eintrag.getKey() + ": " + eintrag.getValue());
+}</code></pre>
+
+    <div class="anleitung">
+        <h3>Schritt-für-Schritt: Arbeiten mit Maps</h3>
+        <ol>
+            <li>Importiere die Map-Klassen: <code>import java.util.HashMap;</code> oder <code>import java.util.TreeMap;</code></li>
+            <li>Erstelle eine Map: <code>HashMap&lt;Schlüsseltyp, Werttyp&gt; mapName = new HashMap&lt;&gt;();</code></li>
+            <li>Füge Schlüssel-Wert-Paare hinzu mit <code>put(schlüssel, wert)</code></li>
+            <li>Greife auf Werte zu mit <code>get(schlüssel)</code></li>
+            <li>Prüfe, ob ein Schlüssel existiert mit <code>containsKey(schlüssel)</code></li>
+            <li>Entferne Einträge mit <code>remove(schlüssel)</code></li>
+        </ol>
+    </div>
+
+    <div class="aufgabe">
+        <h3>Aufgabe 3: Wörterbuch</h3>
+        <p>Erstelle ein einfaches Wörterbuch, das deutsche Wörter auf englische Übersetzungen abbildet:</p>
+        <ol>
+            <li>Erstelle eine HashMap, die deutsche Wörter (Schlüssel) auf englische Übersetzungen (Werte) abbildet</li>
+            <li>Füge mindestens 5 Wortpaare hinzu</li>
+            <li>Gib die Übersetzung für ein bestimmtes Wort aus</li>
+            <li>Prüfe, ob ein bestimmtes Wort im Wörterbuch existiert</li>
+            <li>Füge ein neues Wortpaar hinzu</li>
+            <li>Gib alle deutsch-englischen Wortpaare aus</li>
+        </ol>
+        
+        <p>Hier ist ein Gerüst zum Starten:</p>
+<pre><code>import java.util.HashMap;
+import java.util.Map;
+
+public class Woerterbuch {
+    public static void main(String[] args) {
+        // TODO: Erstelle eine HashMap für das Wörterbuch
+        
+        // TODO: Füge Wortpaare hinzu
+        
+        // TODO: Gib die Übersetzung eines Wortes aus
+        
+        // TODO: Prüfe, ob ein Wort existiert
+        
+        // TODO: Füge ein neues Wortpaar hinzu
+        
+        // TODO: Gib alle Wortpaare aus
+    }
+}</code></pre>
+    </div>
+
+    <h2 id="methoden">4. Wichtige Collection-Methoden</h2>
+    
+    <p>Die Collections-Klasse bietet nützliche statische Methoden für Collections:</p>
+
+    <pre><code>import java.util.Collections;
+import java.util.ArrayList;
+import java.util.List;
+
+// Liste erstellen und befüllen
+List&lt;Integer&gt; zahlen = new ArrayList&lt;&gt;();
+zahlen.add(3);
+zahlen.add(1);
+zahlen.add(5);
+zahlen.add(2);
+
+// Sortieren
+Collections.sort(zahlen);
+System.out.println("Sortiert: " + zahlen);  // [1, 2, 3, 5]
+
+// Maximum und Minimum finden
+int max = Collections.max(zahlen);  // 5
+int min = Collections.min(zahlen);  // 1
+
+// Liste umkehren
+Collections.reverse(zahlen);
+System.out.println("Umgekehrt: " + zahlen);  // [5, 3, 2, 1]
+
+// Zufällige Anordnung
+Collections.shuffle(zahlen);
+System.out.println("Gemischt: " + zahlen);
+
+// Häufigkeit eines Elements
+int anzahl = Collections.frequency(zahlen, 3);  // Wie oft kommt 3 vor?</code></pre>
+
+    <div class="anleitung">
+        <h3>Schritt-für-Schritt: Verwenden der Collections-Klasse</h3>
+        <ol>
+            <li>Importiere die Collections-Klasse: <code>import java.util.Collections;</code></li>
+            <li>Erstelle und befülle eine Collection (z.B. ArrayList)</li>
+            <li>Nutze die statischen Methoden von Collections, z.B. <code>Collections.sort(liste)</code></li>
+            <li>Weitere nützliche Methoden: <code>max()</code>, <code>min()</code>, <code>reverse()</code>, <code>shuffle()</code></li>
+        </ol>
+    </div>
+
+    <div class="aufgabe">
+        <h3>Aufgabe 4: Noten verwalten</h3>
+        <p>Erstelle ein Programm zur Verwaltung von Noten:</p>
+        <ol>
+            <li>Erstelle eine ArrayList mit folgenden Noten: 2, 1, 3, 5, 2, 4, 1, 3</li>
+            <li>Sortiere die Noten</li>
+            <li>Gib die beste und die schlechteste Note aus</li>
+            <li>Berechne den Notendurchschnitt</li>
+            <li>Zähle, wie oft die Note 2 vorkommt</li>
+            <li>Mische die Noten und gib sie aus</li>
+        </ol>
+        
+        <p>Hier ist ein Gerüst zum Starten:</p>
+<pre><code>import java.util.ArrayList;
+import java.util.Collections;
+import java.util.List;
+
+public class Notenverwaltung {
+    public static void main(String[] args) {
+        // TODO: Erstelle eine ArrayList mit den Noten
+        
+        // TODO: Sortiere die Noten
+        
+        // TODO: Gib beste und schlechteste Note aus
+        
+        // TODO: Berechne den Notendurchschnitt
+        
+        // TODO: Zähle, wie oft die Note 2 vorkommt
+        
+        // TODO: Mische die Noten und gib sie aus
+    }
+}</code></pre>
+    </div>
+
+    <h2 id="fortgeschritten">5. Fortgeschrittene Aufgaben</h2>
+    
+    <div class="fortgeschritten">
+        <h3>Aufgabe 5: Häufigkeitsanalyse</h3>
+        <p>Schreibe ein Programm, das die Häufigkeit von Wörtern in einem Text analysiert:</p>
+        <ol>
+            <li>Definiere einen String mit einem längeren Text (mindestens 3 Sätze)</li>
+            <li>Teile den Text in einzelne Wörter auf (Hinweis: <code>String.split("\\s+")</code>)</li>
+            <li>Zähle, wie oft jedes Wort vorkommt, und speichere die Ergebnisse in einer HashMap</li>
+            <li>Gib die Wörter und deren Häufigkeit sortiert nach Häufigkeit aus (häufigstes Wort zuerst)</li>
+            <li>Ignoriere bei der Analyse Groß-/Kleinschreibung</li>
+        </ol>
+        
+        <p>Hier ist ein Gerüst zum Starten:</p>
+<pre><code>import java.util.*;
+
+public class Haeufigkeitsanalyse {
+    public static void main(String[] args) {
+        String text = "Dies ist ein Beispieltext. Dieser Text dient als Beispiel für eine Häufigkeitsanalyse. " +
+                     "In diesem Beispiel zählen wir, wie oft jedes Wort in diesem Text vorkommt.";
+        
+        // TODO: Text in Wörter aufteilen
+        
+        // TODO: Häufigkeit der Wörter zählen
+        
+        // TODO: Nach Häufigkeit sortieren und ausgeben
+    }
+}</code></pre>
+    </div>
+    
+    <div class="fortgeschritten">
+        <h3>Aufgabe 6: Kontaktverwaltung</h3>
+        <p>Implementiere ein Kontaktverwaltungssystem mit folgenden Funktionen:</p>
+        <ol>
+            <li>Erstelle eine Kontakt-Klasse mit Attributen für Name, Telefonnummer und E-Mail</li>
+            <li>Implementiere eine Kontaktverwaltung, die Kontakte in einer geeigneten Collection speichert</li>
+            <li>Ermögliche das Hinzufügen, Suchen und Löschen von Kontakten</li>
+            <li>Biete verschiedene Sortiermöglichkeiten (nach Name, nach Hinzufügungsdatum)</li>
+            <li>Implementiere eine Funktion zum Speichern der Favoriten</li>
+            <li>Bonus: Gruppiere Kontakte nach dem Anfangsbuchstaben des Namens</li>
+        </ol>
+
+        <p>Hier ist ein Gerüst zum Starten:</p>
+<pre><code>import java.util.*;
+
+class Kontakt {
+    private String name;
+    private String telefon;
+    private String email;
+    
+    // TODO: Konstruktor und Getter/Setter
+}
+
+public class Kontaktverwaltung {
+    // TODO: Collection für Kontakte wählen und implementieren
+    
+    // TODO: Methoden zum Hinzufügen, Suchen, Löschen
+    
+    // TODO: Sortiermethoden
+    
+    // TODO: Favoriten-Funktionalität
+    
+    public static void main(String[] args) {
+        // TODO: Teste deine Implementierung
+    }
+}</code></pre>
+    </div>
+
+    <div class="fortgeschritten">
+        <h3>Aufgabe 7: Karten-Deck Simulation</h3>
+        <p>Erstelle eine Simulation für ein Kartenspiel:</p>
+        <ol>
+            <li>Definiere Klassen für Spielkarten (mit Farbe und Wert)</li>
+            <li>Implementiere eine Deck-Klasse, die ein vollständiges Kartenspiel (52 Karten) erzeugt</li>
+            <li>Füge Methoden zum Mischen, Ziehen und Zurücklegen von Karten hinzu</li>
+            <li>Implementiere eine Methode, die prüft, ob bestimmte Kombinationen im Deck sind (z.B. Paar, Drilling)</li>
+            <li>Simuliere ein einfaches Kartenspiel mit zwei Spielern</li>
+        </ol>
+
+        <p>Hier ist ein Gerüst zum Starten:</p>
+<pre><code>import java.util.*;
+
+enum Farbe { KARO, HERZ, PIK, KREUZ }
+enum Wert { ZWEI, DREI, VIER, FÜNF, SECHS, SIEBEN, ACHT, NEUN, ZEHN, BUBE, DAME, KÖNIG, ASS }
+
+class Karte {
+    private Farbe farbe;
+    private Wert wert;
+    
+    // TODO: Konstruktor und Getter
+}
+
+class Deck {
+    private List&lt;Karte&gt; karten;
+    
+    // TODO: Konstruktor, der ein vollständiges Deck erstellt
+    
+    // TODO: Methoden zum Mischen, Ziehen, Zurücklegen
+}
+
+public class Kartenspiel {
+    public static void main(String[] args) {
+        // TODO: Erstelle ein Deck und teste die Funktionen
+    }
+}</code></pre>
+    </div>
+
+    <footer style="margin-top: 50px; font-size: 0.9em; color: #7f8c8d; text-align: center; border-top: 1px solid #eee; padding-top: 20px;">
+        <p>Schönes Wochenende</p>
+    </footer>
+</body>
+</html>
