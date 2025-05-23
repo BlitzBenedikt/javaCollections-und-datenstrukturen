@@ -3,567 +3,928 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Java Collections und Datenstrukturen</title>
-    <style>
-        body {
-            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-            line-height: 1.6;
-            color: #333;
-            max-width: 900px;
-            margin: 0 auto;
-            padding: 20px;
-        }
-        h1 {
-            color: #2c3e50;
-            border-bottom: 2px solid #3498db;
-            padding-bottom: 10px;
-        }
-        h2 {
-            color: #2980b9;
-            margin-top: 30px;
-        }
-        h3 {
-            color: #16a085;
-        }
-        .aufgabe {
-            background-color: #f8f9fa;
-            border-left: 4px solid #e74c3c;
-            padding: 15px;
-            margin: 20px 0;
-            border-radius: 4px;
-        }
-        .aufgabe h3 {
-            color: #e74c3c;
-            margin-top: 0;
-        }
-        .anleitung {
-            background-color: #eafaf1;
-            border-left: 4px solid #27ae60;
-            padding: 15px;
-            margin: 20px 0;
-            border-radius: 4px;
-        }
-        pre {
-            background-color: #f1f1f1;
-            padding: 15px;
-            border-radius: 5px;
-            overflow-x: auto;
-        }
-        code {
-            font-family: Consolas, Monaco, 'Andale Mono', monospace;
-            color: #16a085;
-        }
-        .tipp {
-            background-color: #e8f4fc;
-            border-left: 4px solid #3498db;
-            padding: 10px;
-            margin: 15px 0;
-        }
-        .fortgeschritten {
-            background-color: #f9e7f9;
-            border-left: 4px solid #8e44ad;
-            padding: 15px;
-            margin: 20px 0;
-            border-radius: 4px;
-        }
-        .fortgeschritten h3 {
-            color: #8e44ad;
-            margin-top: 0;
-        }
-        table {
-            width: 100%;
-            border-collapse: collapse;
-            margin: 20px 0;
-        }
-        th, td {
-            padding: 10px;
-            border: 1px solid #ddd;
-            text-align: left;
-        }
-        th {
-            background-color: #f2f2f2;
-        }
-    </style>
+    <link rel="stylesheet" href="css/normalize.css">
+    <link rel="stylesheet" href="css/styles.css">
+    <title>Java Exception Handling - Lerneinheit</title>
 </head>
 <body>
-    <h1>Java Collections und Datenstrukturen</h1>
+    <header class="header">
+        <div class="container">
+            <h1>Exception Handling in Java</h1>
+            <p class="subtitle">Eine interaktive Lerneinheit zum Umgang mit Ausnahmefehlern</p>
+        </div>
+    </header>
     
-    <p>In dieser Lektion lernst du die wichtigsten Datenstrukturen und Collections in Java kennen. Collections sind Sammlungen von Objekten, die es dir ermöglichen, Daten effizient zu speichern, zu organisieren und zu manipulieren.</p>
-    
-    <h2>Inhaltsverzeichnis</h2>
-    <ol>
-        <li><a href="#listen">Listen: ArrayList und LinkedList</a></li>
-        <li><a href="#sets">Sets: HashSet und TreeSet</a></li>
-        <li><a href="#maps">Maps: HashMap und TreeMap</a></li>
-        <li><a href="#methoden">Wichtige Collection-Methoden</a></li>
-        <li><a href="#fortgeschritten">Fortgeschrittene Aufgaben</a></li>
-    </ol>
+    <main class="container">
+        <!-- Intro-Sektion mit einfacherer Erklärung -->
+        <section id="introduction" class="card intro-card">
+            <h2>Was sind Exceptions?</h2>
+            <div class="simple-explanation">
+                <p>Stell dir vor, du machst dir ein Sandwich:</p>
+                <ul class="fun-list">
+                    <li class="fun-item"><span class="step">Schritt 1:</span> Brot nehmen ✓</li>
+                    <li class="fun-item"><span class="step">Schritt 2:</span> Butter aufs Brot streichen ✓</li>
+                    <li class="fun-item error"><span class="step">Schritt 3:</span> Ups! Die Marmelade ist leer! ❌</li>
+                </ul>
+                <p>Was machst du jetzt?</p>
+                <p>In Java ist eine <strong>Exception</strong> wie ein solches unerwartetes Problem. Anstatt das Programm abstürzen zu lassen, kannst du "Ersatzpläne" vorbereiten.</p>
+            </div>
+        </section>
 
-    <h2 id="listen">1. Listen: ArrayList und LinkedList</h2>
-    
-    <p>Listen sind geordnete Collections, in denen Elemente doppelt vorkommen können. Es gibt zwei Hauptimplementierungen: <code>ArrayList</code> und <code>LinkedList</code>.</p>
-    
-    <table>
-        <tr>
-            <th>ArrayList</th>
-            <th>LinkedList</th>
-        </tr>
-        <tr>
-            <td>Basiert auf einem dynamischen Array</td>
-            <td>Basiert auf einer verketteten Liste</td>
-        </tr>
-        <tr>
-            <td>Schneller Zugriff auf Elemente per Index</td>
-            <td>Langsamer Zugriff auf Elemente per Index</td>
-        </tr>
-        <tr>
-            <td>Langsamer beim Einfügen/Löschen in der Mitte</td>
-            <td>Schneller beim Einfügen/Löschen in der Mitte</td>
-        </tr>
-    </table>
+        <section id="explanation" class="card">
+            <h2>Was ist Exception Handling?</h2>
+            <p>Exception Handling ist wie ein "Plan B", falls in deinem Programm etwas schiefgeht. Statt dass dein Programm einfach abstürzt, kannst du ihm sagen, wie es mit Problemen umgehen soll.</p>
+            
+            <div class="info-box">
+                <h3>Warum ist Exception Handling wichtig?</h3>
+                <ul>
+                    <li><span class="highlight">Verhindert Programmabstürze</span> bei unerwarteten Fehlern</li>
+                    <li><span class="highlight">Zeigt hilfreiche Fehlermeldungen</span> statt kryptischer Abstürze</li>
+                    <li><span class="highlight">Macht Programme robuster</span> gegen Fehleingaben oder andere Probleme</li>
+                    <li><span class="highlight">Trennt</span> normalen Programmablauf von Fehlerbehandlung</li>
+                </ul>
+            </div>
+            
+            <h3>Die wichtigsten Schlüsselwörter im Überblick:</h3>
+            <div class="code-keywords">
+                <div class="keyword keyword-try">
+                    <code>try</code>
+                    <p>Hier kommt der "riskante" Code hin, der vielleicht Probleme machen könnte</p>
+                    <div class="example-bubble">Wie: "Ich versuche, diese Datei zu öffnen..."</div>
+                </div>
+                <div class="keyword keyword-catch">
+                    <code>catch</code>
+                    <p>Hier kommt der "Notfallplan" hin, falls etwas schiefgeht</p>
+                    <div class="example-bubble">Wie: "Falls die Datei nicht existiert, sage dem Benutzer Bescheid"</div>
+                </div>
+                <div class="keyword keyword-finally">
+                    <code>finally</code>
+                    <p>Dieser Teil wird IMMER ausgeführt - egal ob es geklappt hat oder nicht</p>
+                    <div class="example-bubble">Wie: "Egal was passiert ist, schließe die Datei am Ende"</div>
+                </div>
+                <div class="keyword keyword-throw">
+                    <code>throw</code>
+                    <p>Hier sagst du: "Hier ist ein Problem, kümmere dich darum!"</p>
+                    <div class="example-bubble">Wie: "ALARM! Diese Eingabe ist falsch!"</div>
+                </div>
+                <div class="keyword keyword-throws">
+                    <code>throws</code>
+                    <p>Warnt andere, dass diese Methode Probleme verursachen könnte</p>
+                    <div class="example-bubble">Wie ein Warnschild: "Vorsicht! Diese Methode könnte eine Exception werfen"</div>
+                </div>
+            </div>
+            
+            <h3>Exceptions in Java - die Familienhierarchie:</h3>
+            <div class="hierarchy-diagram">
+                <div class="hierarchy-tree">
+                    <div class="tree-node root-node">
+                        <div class="tree-content">
+                            <strong>Throwable</strong>
+                            <p>Der Ober-Boss aller Exceptions</p>
+                        </div>
+                        <div class="tree-branches">
+                            <div class="tree-branch">
+                                <div class="tree-node error-node">
+                                    <div class="tree-content">
+                                        <strong>Error</strong>
+                                        <p>Sehr schlimme Probleme<br>(meistens ignorieren)</p>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="tree-branch">
+                                <div class="tree-node exception-node">
+                                    <div class="tree-content">
+                                        <strong>Exception</strong>
+                                        <p>Die normalen Probleme</p>
+                                    </div>
+                                    <div class="tree-branches">
+                                        <div class="tree-branch">
+                                            <div class="tree-node checked-node">
+                                                <div class="tree-content">
+                                                    <strong>Checked Exceptions</strong>
+                                                    <p>Diese MUSST du behandeln</p>
+                                                    <span class="examples">z.B. IOException, SQLException</span>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="tree-branch">
+                                            <div class="tree-node runtime-node">
+                                                <div class="tree-content">
+                                                    <strong>RuntimeException</strong>
+                                                    <p>Diese KANNST du behandeln</p>
+                                                    <span class="examples">z.B. NullPointerException</span>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
 
-    <pre><code>// ArrayList erstellen
-ArrayList&lt;String&gt; namenListe = new ArrayList&lt;&gt;();
-
-// Elemente hinzufügen
-namenListe.add("Anna");
-namenListe.add("Ben");
-namenListe.add("Clara");
-
-// Element an bestimmter Position einfügen
-namenListe.add(1, "David");  // Fügt "David" an Position 1 ein
-
-// Auf Elemente zugreifen
-String ersterName = namenListe.get(0);  // "Anna"
-
-// Elemente entfernen
-namenListe.remove("Ben");  // Entfernt "Ben"
-namenListe.remove(0);      // Entfernt erstes Element
-
-// Größe einer Liste
-int anzahl = namenListe.size();
-
-// Prüfen, ob ein Element enthalten ist
-boolean enthalten = namenListe.contains("Clara");  // true
-
-// Durch eine Liste iterieren
-for (String name : namenListe) {
-    System.out.println(name);
-}</code></pre>
-
-    <div class="anleitung">
-        <h3>Schritt-für-Schritt: Erstellen und Verwenden einer ArrayList</h3>
-        <ol>
-            <li>Importiere die ArrayList-Klasse: <code>import java.util.ArrayList;</code></li>
-            <li>Erstelle eine ArrayList für den gewünschten Datentyp: <code>ArrayList&lt;Typ&gt; listenName = new ArrayList&lt;&gt;();</code></li>
-            <li>Füge Elemente hinzu mit <code>add()</code></li>
-            <li>Greife auf Elemente zu mit <code>get(index)</code></li>
-            <li>Aktualisiere Elemente mit <code>set(index, neuesElement)</code></li>
-            <li>Entferne Elemente mit <code>remove()</code></li>
-        </ol>
-    </div>
-
-    <div class="aufgabe">
-        <h3>Aufgabe 1: Einkaufsliste</h3>
-        <p>Erstelle eine Einkaufsliste mit ArrayList und implementiere folgende Funktionen:</p>
-        <ol>
-            <li>Füge mindestens 5 Artikel zur Einkaufsliste hinzu</li>
-            <li>Gib die gesamte Einkaufsliste aus</li>
-            <li>Prüfe, ob "Milch" auf der Liste steht</li>
-            <li>Füge an Position 2 einen neuen Artikel ein</li>
-            <li>Entferne den ersten Artikel von der Liste</li>
-            <li>Gib die aktualisierte Liste und deren Größe aus</li>
-        </ol>
-        
-        <p>Hier ist ein Gerüst zum Starten:</p>
-<pre><code>import java.util.ArrayList;
-
-public class Einkaufsliste {
+        <section id="basic-example" class="card">
+            <h2>Wie funktioniert Exception Handling?</h2>
+            
+            <div class="explanation-box">
+                <div class="explanation-title">Ein einfaches Beispiel: Division durch Null</div>
+                <div class="explanation-content">
+                    <p>Was passiert, wenn du durch Null teilst? In Mathe ist das nicht definiert, und in Java gibt es einen Fehler!</p>
+                    <div class="code-visual">
+                        <div class="code-with-explanation">
+                            <pre class="code-example"><code>public class DivisionBeispiel {
     public static void main(String[] args) {
-        // Erstelle eine ArrayList für Strings
-        ArrayList&lt;String&gt; einkaufsliste = new ArrayList&lt;&gt;();
+        <span class="code-highlight-try">try {</span>
+            // Risiko-Zone: Hier könnte etwas schiefgehen
+            System.out.println("Versuche 10 durch 0 zu teilen...");
+            int ergebnis = 10 / 0;  // BOOM! ArithmeticException 💥
+            System.out.println("Ergebnis: " + ergebnis); // Wird nie erreicht!
+        <span class="code-highlight-catch">} catch (ArithmeticException e) {</span>
+            // Rettungs-Zone: Wenn etwas schiefgeht, landen wir hier
+            System.out.println("Oops! 🚨 Division durch Null ist nicht erlaubt!");
+            System.out.println("Fehlermeldung: " + e.getMessage());
+        <span class="code-highlight-finally">} finally {</span>
+            // Aufräum-Zone: Wird immer ausgeführt
+            System.out.println("Berechnung beendet (erfolgreich oder nicht).");
+        <span class="code-highlight-finally">}</span>
         
-        // TODO: Füge Artikel hinzu
-        
-        // TODO: Gib die Liste aus
-        
-        // TODO: Prüfe, ob "Milch" enthalten ist
-        
-        // TODO: Füge an Position 2 einen Artikel ein
-        
-        // TODO: Entferne den ersten Artikel
-        
-        // TODO: Gib die aktualisierte Liste aus
+        System.out.println("Das Programm läuft normal weiter! 👍");
     }
 }</code></pre>
-    </div>
+                            <div class="code-explanation">
+                                <div class="explanation-point">Der <code class="highlight-try">try</code>-Block enthält den "gefährlichen" Code</div>
+                                <div class="explanation-point">Der <code class="highlight-catch">catch</code>-Block fängt eine bestimmte Exception ab</div>
+                                <div class="explanation-point">Der <code class="highlight-finally">finally</code>-Block wird immer ausgeführt</div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="output-demo">
+                    <h4>So sieht die Ausgabe aus:</h4>
+                    <pre class="console-output">Versuche 10 durch 0 zu teilen...
+Oops! 🚨 Division durch Null ist nicht erlaubt!
+Fehlermeldung: / by zero
+Berechnung beendet (erfolgreich oder nicht).
+Das Programm läuft normal weiter! 👍</pre>
+                </div>
+            </div>
 
-    <div class="tipp">
-        <p><strong>Tipp:</strong> LinkedList ist besser geeignet, wenn du häufig Elemente am Anfang oder in der Mitte einfügen oder entfernen musst. ArrayList ist effizienter, wenn du hauptsächlich per Index auf Elemente zugreifst.</p>
-    </div>
+            <h3>Was passiert bei einer Exception?</h3>
+            <div class="flowchart">
+                <div class="flow-step">1. Code im <code>try</code>-Block wird ausgeführt</div>
+                <div class="flow-arrow">↓</div>
+                <div class="flow-step">2. Exception tritt auf (z.B. Division durch Null)</div>
+                <div class="flow-arrow">↓</div>
+                <div class="flow-step">3. Rest des <code>try</code>-Blocks wird übersprungen</div>
+                <div class="flow-arrow">↓</div>
+                <div class="flow-step">4. Passender <code>catch</code>-Block wird gesucht und ausgeführt</div>
+                <div class="flow-arrow">↓</div>
+                <div class="flow-step">5. <code>finally</code>-Block wird ausgeführt (falls vorhanden)</div>
+                <div class="flow-arrow">↓</div>
+                <div class="flow-step">6. Programm läuft nach dem gesamten <code>try-catch</code> weiter</div>
+            </div>
 
-    <h2 id="sets">2. Sets: HashSet und TreeSet</h2>
+            <div class="tip-box">
+                <h4>🔍 Exception-Detektiv: Was steckt in der Exception?</h4>
+                <p>Eine Exception enthält wichtige Hinweise, die dir helfen, das Problem zu finden:</p>
+                <div class="detective-tips">
+                    <div class="detective-tip">
+                        <code>e.getMessage()</code>
+                        <p>Kurze Beschreibung des Problems</p>
+                        <div class="example-output">z.B. <span class="console-text">/ by zero</span></div>
+                    </div>
+                    <div class="detective-tip">
+                        <code>e.printStackTrace()</code>
+                        <p>Zeigt genau, wo im Code das Problem auftrat</p>
+                        <div class="example-output small-text">z.B. <span class="console-text">at DivisionBeispiel.main(DivisionBeispiel.java:5)</span></div>
+                    </div>
+                    <div class="detective-tip">
+                        <code>e.getClass().getName()</code>
+                        <p>Welche Art von Exception ist es?</p>
+                        <div class="example-output">z.B. <span class="console-text">java.lang.ArithmeticException</span></div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section id="common-exceptions" class="card">
+            <h2>Häufige Exceptions und wie du sie erkennst</h2>
+            
+            <div class="exceptions-gallery">
+                <div class="exception-card">
+                    <div class="exception-icon">➗</div>
+                    <div class="exception-name">ArithmeticException</div>
+                    <div class="exception-desc">Mathematische Fehler wie Division durch Null</div>
+                    <div class="exception-example">
+                        <code>int x = 10 / 0;</code>
+                    </div>
+                </div>
+                
+                <div class="exception-card">
+                    <div class="exception-icon">👻</div>
+                    <div class="exception-name">NullPointerException</div>
+                    <div class="exception-desc">Wenn du versuchst, mit einem "null" Objekt etwas zu tun</div>
+                    <div class="exception-example">
+                        <code>String name = null;<br>int länge = name.length();</code>
+                    </div>
+                </div>
+                
+                <div class="exception-card">
+                    <div class="exception-icon">📊</div>
+                    <div class="exception-name">ArrayIndexOutOfBoundsException</div>
+                    <div class="exception-desc">Wenn du auf einen ungültigen Array-Index zugreifst</div>
+                    <div class="exception-example">
+                        <code>int[] zahlen = {1, 2, 3};<br>int x = zahlen[10];</code>
+                    </div>
+                </div>
+                
+                <div class="exception-card">
+                    <div class="exception-icon">🔢</div>
+                    <div class="exception-name">NumberFormatException</div>
+                    <div class="exception-desc">Wenn ein String keine gültige Zahl ist</div>
+                    <div class="exception-example">
+                        <code>int alter = Integer.parseInt("zwanzig");</code>
+                    </div>
+                </div>
+                
+                <div class="exception-card">
+                    <div class="exception-icon">📁</div>
+                    <div class="exception-name">FileNotFoundException</div>
+                    <div class="exception-desc">Wenn eine Datei nicht gefunden werden kann</div>
+                    <div class="exception-example">
+                        <code>new FileReader("gibtsNicht.txt");</code>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section id="tasks" class="tasks-section">
+            <h2>Aufgaben zum Üben</h2>
+            
+            <!-- Aufgabe 1 mit einfacherer Erklärung -->
+            <div class="task card" id="task1">
+                <div class="task-header">
+                    <span class="difficulty beginner">Anfänger</span>
+                    <h3>Aufgabe 1: Text in Zahl umwandeln</h3>
+                </div>
+                
+                <div class="task-intro">
+                    <p>Beim Programmieren müssen wir oft Text (Strings) in Zahlen umwandeln. Was passiert, wenn jemand statt einer Zahl "Hallo" eingibt? 🤔</p>
+                </div>
+
+                <div class="task-box">
+                    <div class="task-description">
+                        <h4>Was du tun sollst:</h4>
+                        <p>Schreibe eine Methode, die versucht, einen Text in eine Zahl umzuwandeln. Wenn das klappt, gib die Zahl zurück. Wenn nicht, fang den Fehler ab und gib eine Fehlermeldung aus.</p>
+                    </div>
+                    
+                    <div class="theory-box">
+                        <h4>Das brauchst du dafür:</h4>
+                        <div class="theory-item">
+                            <h5><code>Integer.parseInt(text)</code></h5>
+                            <p>Diese Methode wandelt einen Text in eine ganze Zahl um.</p>
+                            <div class="mini-example">
+                                <p><code>Integer.parseInt("123")</code> ergibt <code>123</code></p>
+                                <p><code>Integer.parseInt("abc")</code> löst <code>NumberFormatException</code> aus</p>
+                            </div>
+                        </div>
+                        <div class="theory-item">
+                            <h5><code>try-catch</code> Block</h5>
+                            <p>Damit kannst du den Fehler abfangen und darauf reagieren.</p>
+                        </div>
+                    </div>
+
+                    <div class="instructions">
+                        <ol class="instruction-steps">
+                            <li>Schreibe die Methode <code>parseInteger</code>, die einen String als Parameter nimmt</li>
+                            <li>Versuche, den String mit <code>Integer.parseInt()</code> umzuwandeln</li>
+                            <li>Wenn es funktioniert, gib die Zahl zurück</li>
+                            <li>Wenn nicht (bei <code>NumberFormatException</code>), gib eine Fehlermeldung aus</li>
+                            <li>In diesem Fall soll die Methode <code>-1</code> zurückgeben</li>
+                        </ol>
+                    </div>
+                    
+                    <div class="code-template-container">
+                        <h4>Code-Vorlage:</h4>
+                        <pre class="code-template"><code>public class Aufgabe1 {
+    public static int parseInteger(String text) {
+        // Dein Code kommt hier hin
+    }
     
-    <p>Sets sind Collections, die <strong>keine doppelten Elemente</strong> enthalten. Die zwei wichtigsten Implementierungen sind:</p>
-    
-    <table>
-        <tr>
-            <th>HashSet</th>
-            <th>TreeSet</th>
-        </tr>
-        <tr>
-            <td>Unsortierte Menge von Elementen</td>
-            <td>Sortierte Menge von Elementen</td>
-        </tr>
-        <tr>
-            <td>Sehr schnell bei allen Operationen</td>
-            <td>Etwas langsamer, aber sortiert</td>
-        </tr>
-    </table>
-
-    <pre><code>// HashSet erstellen
-HashSet&lt;Integer&gt; zahlen = new HashSet&lt;&gt;();
-
-// Elemente hinzufügen
-zahlen.add(5);
-zahlen.add(10);
-zahlen.add(15);
-zahlen.add(5);  // Wird ignoriert, da 5 bereits enthalten ist
-
-System.out.println(zahlen);  // [5, 10, 15]
-
-// TreeSet für sortierte Elemente
-TreeSet&lt;String&gt; sortierteNamen = new TreeSet&lt;&gt;();
-sortierteNamen.add("Max");
-sortierteNamen.add("Anna");
-sortierteNamen.add("Ben");
-
-System.out.println(sortierteNamen);  // [Anna, Ben, Max]</code></pre>
-
-    <div class="anleitung">
-        <h3>Schritt-für-Schritt: Arbeiten mit Sets</h3>
-        <ol>
-            <li>Importiere die Set-Klassen: <code>import java.util.HashSet;</code> oder <code>import java.util.TreeSet;</code></li>
-            <li>Erstelle ein Set: <code>HashSet&lt;Typ&gt; setName = new HashSet&lt;&gt;();</code></li>
-            <li>Füge Elemente hinzu mit <code>add()</code></li>
-            <li>Prüfe Enthaltensein mit <code>contains()</code></li>
-            <li>Entferne Elemente mit <code>remove()</code></li>
-            <li>Iteriere durch das Set mit einer for-each Schleife</li>
-        </ol>
-    </div>
-
-    <div class="aufgabe">
-        <h3>Aufgabe 2: Eindeutige Zahlen</h3>
-        <p>In dieser Aufgabe sollst du Sets verwenden, um eindeutige Zahlen zu verarbeiten:</p>
-        <ol>
-            <li>Erstelle ein HashSet für Integer-Werte</li>
-            <li>Füge folgende Zahlen hinzu: 3, 7, 2, 5, 3, 7, 9, 5</li>
-            <li>Gib das Set aus und beobachte, dass Duplikate automatisch entfernt wurden</li>
-            <li>Erstelle ein TreeSet mit denselben Zahlen</li>
-            <li>Vergleiche die Ausgabe des TreeSets mit dem HashSet</li>
-            <li>Prüfe, ob die Zahl 10 in deinem Set enthalten ist</li>
-        </ol>
-        
-        <p>Hier ist ein Gerüst zum Starten:</p>
-<pre><code>import java.util.HashSet;
-import java.util.TreeSet;
-import java.util.Set;
-
-public class EindeutigeZahlen {
     public static void main(String[] args) {
-        // TODO: Erstelle ein HashSet und füge die Zahlen hinzu
-        
-        // TODO: Gib das HashSet aus
-        
-        // TODO: Erstelle ein TreeSet mit denselben Zahlen
-        
-        // TODO: Gib das TreeSet aus und vergleiche
-        
-        // TODO: Prüfe, ob die Zahl 10 enthalten ist
+        // Teste die Methode mit gültigen und ungültigen Werten
+        System.out.println(parseInteger("123"));  // Sollte 123 ausgeben
+        System.out.println(parseInteger("abc"));  // Sollte -1 ausgeben (und Fehlermeldung)
     }
 }</code></pre>
-    </div>
+                    </div>
+                </div>
+                
+                <button class="solution-btn animated-btn" data-target="solution1">Lösung anzeigen</button>
+                <div class="solution" id="solution1">
+                    <h4>Lösung:</h4>
+                    <div class="solution-explanation">
+                        <p>So kannst du das Problem lösen:</p>
+                    </div>
+                    <pre class="solution-code"><code>public static int parseInteger(String text) {
+    try {
+        // Versuche, den Text in eine Zahl umzuwandeln
+        return Integer.parseInt(text);
+    } catch (NumberFormatException e) {
+        // Wenn es nicht klappt, gib eine Fehlermeldung aus
+        System.out.println("Fehler: Der Text '" + text + "' ist keine gültige Zahl!");
+        System.out.println("Fehlermeldung: " + e.getMessage());
+        return -1;  // Gib -1 zurück als Fehlerindikator
+    }
+}</code></pre>
+                    <div class="explanation-notes">
+                        <p>Was hier passiert:</p>
+                        <ol>
+                            <li>Wir <span class="highlight">versuchen</span> die Umwandlung im try-Block</li>
+                            <li>Wenn es klappt, wird die Zahl direkt zurückgegeben</li>
+                            <li>Wenn nicht, <span class="highlight">fangen</span> wir die Exception ab</li>
+                            <li>Wir zeigen eine benutzerfreundliche Fehlermeldung</li>
+                            <li>Dann geben wir -1 zurück, als Signal: "Es gab einen Fehler"</li>
+                        </ol>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- Aufgabe 2 mit visueller Erklärung zu Arrays -->
+            <div class="task card" id="task2">
+                <div class="task-header">
+                    <span class="difficulty intermediate">Mittel</span>
+                    <h3>Aufgabe 2: Sicherer Array-Zugriff</h3>
+                </div>
+                
+                <div class="task-intro">
+                    <p>Arrays haben feste Grenzen. Was passiert, wenn du außerhalb dieser Grenzen zugreifst? 🚧</p>
+                </div>
 
-    <h2 id="maps">3. Maps: HashMap und TreeMap</h2>
+                <div class="visual-explanation">
+                    <h4>Wie Arrays funktionieren:</h4>
+                    <div class="array-visualization">
+                        <div class="array-element">Anna<div class="array-index">0</div></div>
+                        <div class="array-element">Ben<div class="array-index">1</div></div>
+                        <div class="array-element">Clara<div class="array-index">2</div></div>
+                        <div class="array-element">David<div class="array-index">3</div></div>
+                        <div class="array-error">???<div class="array-index error">4</div></div>
+                        <div class="array-caption">String[] namen = {"Anna", "Ben", "Clara", "David"};</div>
+                    </div>
+                    <p class="array-note">Zugriff auf <code>namen[4]</code> löst eine <code>ArrayIndexOutOfBoundsException</code> aus!</p>
+                </div>
+                
+                <div class="task-box">
+                    <div class="task-description">
+                        <h4>Was du tun sollst:</h4>
+                        <p>Schreibe eine Methode, die sicher auf ein Array zugreift. Wenn der Index ungültig ist, fange den Fehler ab und gib eine hilfreiche Meldung aus.</p>
+                    </div>
+
+                    <div class="theory-box">
+                        <h4>Das brauchst du dafür:</h4>
+                        <div class="theory-item">
+                            <h5><code>ArrayIndexOutOfBoundsException</code></h5>
+                            <p>Diese Exception wird ausgelöst, wenn du:</p>
+                            <ul>
+                                <li>Einen negativen Index verwendest (<code>array[-1]</code>)</li>
+                                <li>Einen zu großen Index verwendest (<code>array[array.length]</code> oder größer)</li>
+                            </ul>
+                        </div>
+                    </div>
+
+                    <div class="instructions">
+                        <ol class="instruction-steps">
+                            <li>Implementiere die Methode <code>getElementSafely</code></li>
+                            <li>Die Methode soll ein Element aus dem Array zurückgeben, wenn der Index gültig ist</li>
+                            <li>Wenn der Index ungültig ist, fange die <code>ArrayIndexOutOfBoundsException</code></li>
+                            <li>Gib eine Fehlermeldung aus, die den ungültigen Index und die erlaubte Größe nennt</li>
+                            <li>In diesem Fall soll die Methode <code>null</code> zurückgeben</li>
+                        </ol>
+                    </div>
+                    
+                    <div class="code-template-container">
+                        <h4>Code-Vorlage:</h4>
+                        <pre class="code-template"><code>public class Aufgabe2 {
+    public static String getElementSafely(String[] array, int index) {
+        // Dein Code kommt hier hin
+    }
     
-    <p>Maps speichern Schlüssel-Wert-Paare. Jeder Schlüssel ist eindeutig und mit einem Wert verknüpft.</p>
+    public static void main(String[] args) {
+        String[] namen = {"Anna", "Ben", "Clara", "David"};
+        
+        // Teste die Methode mit verschiedenen Indizes
+        System.out.println(getElementSafely(namen, 2));  // Sollte "Clara" ausgeben
+        System.out.println(getElementSafely(namen, 5));  // Sollte einen Fehler abfangen
+        System.out.println(getElementSafely(namen, -1)); // Sollte einen Fehler abfangen
+    }
+}</code></pre>
+                    </div>
+                </div>
+                
+                <button class="solution-btn animated-btn" data-target="solution2">Lösung anzeigen</button>
+                <div class="solution" id="solution2">
+                    <h4>Lösung:</h4>
+                    <pre class="solution-code"><code>public static String getElementSafely(String[] array, int index) {
+    try {
+        return array[index];  // Versuche, auf das Array zuzugreifen
+    } catch (ArrayIndexOutOfBoundsException e) {
+        // Wenn der Index ungültig ist, gib eine hilfreiche Fehlermeldung aus
+        System.out.println("⚠️ Fehler: Der Index " + index + " ist ungültig!");
+        System.out.println("📏 Das Array hat " + array.length + " Elemente (Indizes von 0 bis " + (array.length-1) + ")");
+        return null;  // Gib null zurück als Fehlerindikator
+    }
+}</code></pre>
+                    <div class="solution-alternatives">
+                        <h5>Alternative Lösung (ohne Exceptions):</h5>
+                        <pre class="solution-code"><code>public static String getElementSafely(String[] array, int index) {
+    // Prüfe zuerst, ob der Index gültig ist
+    if (index >= 0 && index < array.length) {
+        return array[index];  // Gib das Element zurück, wenn der Index gültig ist
+    } else {
+        // Wenn der Index ungültig ist, gib eine Fehlermeldung aus
+        System.out.println("⚠️ Fehler: Der Index " + index + " ist ungültig!");
+        System.out.println("📏 Das Array hat " + array.length + " Elemente (Indizes von 0 bis " + (array.length-1) + ")");
+        return null;  // Gib null zurück als Fehlerindikator
+    }
+}</code></pre>
+                        <div class="comparison-note">
+                            <p><strong>Welche Lösung ist besser?</strong> In diesem Fall ist die zweite Lösung (ohne Exception) oft besser, weil:</p>
+                            <ol>
+                                <li>Sie ist <strong>schneller</strong> (Exceptions werfen ist langsamer)</li>
+                                <li>Sie macht die <strong>Absicht klarer</strong> (wir prüfen explizit)</li>
+                                <li>Exceptions sollten für <strong>unerwartete</strong> Fehler verwendet werden, nicht für normale Programmlogik</li>
+                            </ol>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- Aufgabe 3 mit visueller Darstellung eigener Exceptions -->
+            <div class="task card" id="task3">
+                <div class="task-header">
+                    <span class="difficulty advanced">Fortgeschritten</span>
+                    <h3>Aufgabe 3: Erstelle deine eigene Exception</h3>
+                </div>
+                
+                <div class="task-intro">
+                    <p>Manchmal willst du spezielle Fehler definieren, die zu deinem Programm passen. 🛠</p>
+                </div>
+
+                <div class="custom-exception-explainer">
+                    <h4>Eigene Exceptions erstellen:</h4>
+                    <div class="steps-container">
+                        <div class="creation-step">
+                            <div class="step-number">1</div>
+                            <div class="step-content">
+                                <h5>Erstelle eine neue Klasse</h5>
+                                <pre><code>class MeineException extends Exception {
+    // Konstruktoren und Methoden
+}</code></pre>
+                            </div>
+                        </div>
+                        <div class="creation-step">
+                            <div class="step-number">2</div>
+                            <div class="step-content">
+                                <h5>Füge mindestens einen Konstruktor hinzu</h5>
+                                <pre><code>public MeineException(String message) {
+    super(message); // Ruft den Konstruktor der Elternklasse auf
+}</code></pre>
+                            </div>
+                        </div>
+                        <div class="creation-step">
+                            <div class="step-number">3</div>
+                            <div class="step-content">
+                                <h5>Verwende deine Exception in deinem Code</h5>
+                                <pre><code>if (fehlerBedingung) {
+    throw new MeineException("Fehlermeldung");
+}</code></pre>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="task-box">
+                    <div class="task-description">
+                        <h4>Was du tun sollst:</h4>
+                        <p>Erstelle eine eigene Exception namens <code>UngueltigerAlterException</code> und verwende sie in einer Methode, die prüft, ob jemand alt genug für einen Führerschein ist.</p>
+                    </div>
+
+                    <div class="instructions">
+                        <ol class="instruction-steps">
+                            <li>Erstelle die Klasse <code>UngueltigerAlterException</code>, die von <code>Exception</code> erbt</li>
+                            <li>Implementiere einen Konstruktor, der eine Fehlermeldung entgegennimmt</li>
+                            <li>Schreibe die Methode <code>pruefeAlterFuerFuehrerschein</code>, die:
+                                <ul>
+                                    <li>Eine Exception wirft, wenn das Alter unter 18 ist</li>
+                                    <li>Eine Exception wirft, wenn das Alter unplausibel ist (z.B. negativ oder über 120)</li>
+                                </ul>
+                            </li>
+                            <li>In der <code>main</code>-Methode, teste deine Implementierung mit verschiedenen Altersangaben</li>
+                        </ol>
+                    </div>
+                    
+                    <div class="code-template-container">
+                        <h4>Code-Vorlage:</h4>
+                        <pre class="code-template"><code>// Erstelle hier deine eigene Exception-Klasse
+
+public class Aufgabe3 {
+    public static void pruefeAlterFuerFuehrerschein(int alter) throws UngueltigerAlterException {
+        // Dein Code kommt hier hin
+    }
     
-    <table>
-        <tr>
-            <th>HashMap</th>
-            <th>TreeMap</th>
-        </tr>
-        <tr>
-            <td>Unsortiert</td>
-            <td>Nach Schlüsseln sortiert</td>
-        </tr>
-        <tr>
-            <td>Schnellere Operationen</td>
-            <td>Etwas langsamer, aber sortiert</td>
-        </tr>
-    </table>
-
-    <pre><code>// HashMap erstellen
-HashMap&lt;String, Integer&gt; altersMap = new HashMap&lt;&gt;();
-
-// Schlüssel-Wert-Paare hinzufügen
-altersMap.put("Anna", 25);
-altersMap.put("Ben", 30);
-altersMap.put("Clara", 22);
-
-// Wert über Schlüssel abrufen
-int annasAlter = altersMap.get("Anna");  // 25
-
-// Prüfen, ob ein Schlüssel existiert
-boolean benExistiert = altersMap.containsKey("Ben");  // true
-
-// Durch die Map iterieren
-for (String name : altersMap.keySet()) {
-    System.out.println(name + " ist " + altersMap.get(name) + " Jahre alt.");
+    public static void main(String[] args) {
+        // Teste die Methode mit verschiedenen Altersangaben
+        int[] testAlter = {16, 18, 25, -5, 150};
+        
+        for (int alter : testAlter) {
+            try {
+                pruefeAlterFuerFuehrerschein(alter);
+                System.out.println("✅ Person mit Alter " + alter + " darf einen Führerschein haben.");
+            } catch (UngueltigerAlterException e) {
+                System.out.println("❌ Fehler: " + e.getMessage());
+            }
+        }
+    }
+}</code></pre>
+                    </div>
+                </div>
+                
+                <button class="solution-btn animated-btn" data-target="solution3">Lösung anzeigen</button>
+                <div class="solution" id="solution3">
+                    <h4>Lösung:</h4>
+                    <pre class="solution-code"><code>// Die eigene Exception-Klasse
+class UngueltigerAlterException extends Exception {
+    // Konstruktor, der eine Nachricht entgegennimmt
+    public UngueltigerAlterException(String message) {
+        super(message);  // Ruft den Konstruktor der Elternklasse (Exception) auf
+    }
 }
 
-// Alle Werte durchlaufen
-for (int alter : altersMap.values()) {
-    System.out.println("Alter: " + alter);
+public class Aufgabe3 {
+    public static void pruefeAlterFuerFuehrerschein(int alter) throws UngueltigerAlterException {
+        // Prüfe zuerst, ob das Alter physiologisch möglich ist
+        if (alter < 0 || alter > 120) {
+            throw new UngueltigerAlterException("Das angegebene Alter " + alter + " ist unplausibel! 🤔");
+        } 
+        // Prüfe dann, ob die Person alt genug für einen Führerschein ist
+        else if (alter < 18) {
+            throw new UngueltigerAlterException("Mit " + alter + " Jahren ist man zu jung für einen Führerschein! 🚫 Mindestalter ist 18 Jahre.");
+        }
+        // Wenn wir hier ankommen, ist alles in Ordnung
+        // (Kein expliziter Code nötig)
+    }
+    
+    public static void main(String[] args) {
+        int[] testAlter = {16, 18, 25, -5, 150};
+        
+        for (int alter : testAlter) {
+            try {
+                pruefeAlterFuerFuehrerschein(alter);
+                System.out.println("✅ Person mit Alter " + alter + " darf einen Führerschein haben.");
+            } catch (UngueltigerAlterException e) {
+                System.out.println("❌ Fehler: " + e.getMessage());
+            }
+        }
+    }
+}</code></pre>
+                    <div class="explanation-notes">
+                        <h5>Was diese Lösung besonders macht:</h5>
+                        <ol>
+                            <li>Wir haben unsere <span class="highlight">eigene Exception-Klasse</span> erstellt, die spezifisch für Altersprobleme ist</li>
+                            <li>Wir werfen <span class="highlight">verschiedene Fehlermeldungen</span> je nach Art des Problems</li>
+                            <li>Die Methode ist mit <code>throws</code> markiert, um anzuzeigen, dass sie eine Exception werfen kann</li>
+                            <li>Im <code>main</code>-Programm fangen wir diese Exceptions ab und zeigen benutzerfreundliche Meldungen an</li>
+                        </ol>
+                        <div class="key-insight">
+                            <p><strong>Wichtig:</strong> Durch die eigene Exception ist der Code viel <span class="highlight">aussagekräftiger</span>. Jeder, der die Methode verwendet, weiß genau, welche Art von Problem auftreten kann!</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- Aufgabe 4 mit visuellem Chaining-Beispiel -->
+            <div class="task card" id="task4">
+                <div class="task-header">
+                    <span class="difficulty expert">Experte</span>
+                    <h3>Aufgabe 4: Exception Chaining und Dateiverarbeitung</h3>
+                </div>
+                
+                <div class="visual-explanation">
+                    <h4>Was ist Exception Chaining?</h4>
+                    <div class="chaining-diagram">
+                        <div class="chain-block original">
+                            <div class="exception-title">Ursprüngliche Exception</div>
+                            <div class="exception-content">
+                                <code>FileNotFoundException</code>
+                                <p>"nichtExistent.txt (Das System kann die angegebene Datei nicht finden)"</p>
+                            </div>
+                        </div>
+                        <div class="chain-arrow">wird eingepackt in ↓</div>
+                        <div class="chain-block wrapped">
+                            <div class="exception-title">Eigene Exception</div>
+                            <div class="exception-content">
+                                <code>DateiVerarbeitungException</code>
+                                <p>"Konnte Konfigurationsdatei nicht laden"</p>
+                                <div class="cause-reference">
+                                    <code>getCause()</code> → zeigt auf ursprüngliche Exception
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <p class="chaining-benefit">Vorteil: Du kannst eigene, aussagekräftige Fehler definieren, ohne die ursprüngliche Fehlerinformation zu verlieren!</p>
+                </div>
+                
+                <div class="task-box">
+                    <div class="task-description">
+                        <h4>Was du tun sollst:</h4>
+                        <p>Schreibe ein Programm, das eine Zahl aus einer Datei liest. Es sollen dabei alle möglichen Fehler abgefangen werden und in eine eigene Exception verpackt werden.</p>
+                    </div>
+
+                    <div class="theory-box">
+                        <h4>Das brauchst du dafür:</h4>
+                        <div class="theory-item">
+                            <h5>Datei einlesen mit Java</h5>
+                            <pre><code>BufferedReader reader = new BufferedReader(new FileReader(filename));</code></pre>
+                        </div>
+                        <div class="theory-item">
+                            <h5>Exception Chaining</h5>
+                            <pre><code>try {
+    // Code der eine Exception werfen kann
+} catch (UrsprünglicheException e) {
+    throw new MeineException("Meine Nachricht", e);  // 'e' ist die Ursache
+}</code></pre>
+                        </div>
+                        <div class="theory-item">
+                            <h5>Mögliche Exceptions:</h5>
+                            <ul>
+                                <li><code>FileNotFoundException</code>: Datei existiert nicht</li>
+                                <li><code>IOException</code>: Probleme beim Lesen</li>
+                                <li><code>NumberFormatException</code>: Der Inhalt ist keine Zahl</li>
+                            </ul>
+                        </div>
+                    </div>
+
+                    <div class="instructions">
+                        <ol class="instruction-steps">
+                            <li>Erstelle eine eigene Exception-Klasse <code>DateiVerarbeitungException</code></li>
+                            <li>Implementiere die Methode <code>readNumberFromFile</code>, die:
+                                <ul>
+                                    <li>Die angegebene Datei öffnet und liest</li>
+                                    <li>Den Inhalt in einen Integer umwandelt</li>
+                                    <li>Alle auftretenden Exceptions abfängt und in eine <code>DateiVerarbeitungException</code> verpackt</li>
+                                </ul>
+                            </li>
+                            <li>Teste die Methode mit verschiedenen Dateien</li>
+                        </ol>
+                    </div>
+                    
+                    <div class="code-template-container">
+                        <h4>Code-Vorlage:</h4>
+                        <pre class="code-template"><code>import java.io.BufferedReader;
+import java.io.FileReader;
+import java.io.IOException;
+
+// Erstelle hier deine eigene Exception-Klasse
+
+public class Aufgabe4 {
+    public static int readNumberFromFile(String filePath) throws DateiVerarbeitungException {
+        // Dein Code kommt hier hin
+    }
+    
+    public static void main(String[] args) {
+        String[] dateien = {
+            "zahl.txt",          // existiert und enthält eine gültige Zahl
+            "ungueltig.txt",     // existiert, enthält aber keine Zahl
+            "nichtExistent.txt"  // existiert nicht
+        };
+        
+        for (String datei : dateien) {
+            try {
+                int zahl = readNumberFromFile(datei);
+                System.out.println("Gelesene Zahl: " + zahl);
+            } catch (DateiVerarbeitungException e) {
+                System.out.println("Fehler bei der Verarbeitung: " + e.getMessage());
+                
+                // Zeige auch die ursprüngliche Exception an (falls vorhanden)
+                if (e.getCause() != null) {
+                    System.out.println("Ursache: " + e.getCause().getClass().getSimpleName() + 
+                                       " - " + e.getCause().getMessage());
+                }
+            }
+        }
+    }
+}</code></pre>
+                    </div>
+                </div>
+                
+                <button class="solution-btn animated-btn" data-target="solution4">Lösung anzeigen</button>
+                <div class="solution" id="solution4">
+                    <h4>Lösung:</h4>
+                    <pre class="solution-code"><code>import java.io.BufferedReader;
+import java.io.FileReader;
+import java.io.FileNotFoundException;
+import java.io.IOException;
+
+// Eigene Exception-Klasse mit Unterstützung für Exception Chaining
+class DateiVerarbeitungException extends Exception {
+    // Konstruktor für einfache Nachrichten
+    public DateiVerarbeitungException(String message) {
+        super(message);
+    }
+    
+    // Konstruktor für Exception Chaining - nimmt die ursprüngliche Exception als Parameter
+    public DateiVerarbeitungException(String message, Throwable cause) {
+        super(message, cause);  // Übergibt beide an die Elternklasse
+    }
 }
 
-// Schlüssel-Wert-Paare durchlaufen
-for (Map.Entry&lt;String, Integer&gt; eintrag : altersMap.entrySet()) {
-    System.out.println(eintrag.getKey() + ": " + eintrag.getValue());
-}</code></pre>
-
-    <div class="anleitung">
-        <h3>Schritt-für-Schritt: Arbeiten mit Maps</h3>
-        <ol>
-            <li>Importiere die Map-Klassen: <code>import java.util.HashMap;</code> oder <code>import java.util.TreeMap;</code></li>
-            <li>Erstelle eine Map: <code>HashMap&lt;Schlüsseltyp, Werttyp&gt; mapName = new HashMap&lt;&gt;();</code></li>
-            <li>Füge Schlüssel-Wert-Paare hinzu mit <code>put(schlüssel, wert)</code></li>
-            <li>Greife auf Werte zu mit <code>get(schlüssel)</code></li>
-            <li>Prüfe, ob ein Schlüssel existiert mit <code>containsKey(schlüssel)</code></li>
-            <li>Entferne Einträge mit <code>remove(schlüssel)</code></li>
-        </ol>
-    </div>
-
-    <div class="aufgabe">
-        <h3>Aufgabe 3: Wörterbuch</h3>
-        <p>Erstelle ein einfaches Wörterbuch, das deutsche Wörter auf englische Übersetzungen abbildet:</p>
-        <ol>
-            <li>Erstelle eine HashMap, die deutsche Wörter (Schlüssel) auf englische Übersetzungen (Werte) abbildet</li>
-            <li>Füge mindestens 5 Wortpaare hinzu</li>
-            <li>Gib die Übersetzung für ein bestimmtes Wort aus</li>
-            <li>Prüfe, ob ein bestimmtes Wort im Wörterbuch existiert</li>
-            <li>Füge ein neues Wortpaar hinzu</li>
-            <li>Gib alle deutsch-englischen Wortpaare aus</li>
-        </ol>
-        
-        <p>Hier ist ein Gerüst zum Starten:</p>
-<pre><code>import java.util.HashMap;
-import java.util.Map;
-
-public class Woerterbuch {
-    public static void main(String[] args) {
-        // TODO: Erstelle eine HashMap für das Wörterbuch
-        
-        // TODO: Füge Wortpaare hinzu
-        
-        // TODO: Gib die Übersetzung eines Wortes aus
-        
-        // TODO: Prüfe, ob ein Wort existiert
-        
-        // TODO: Füge ein neues Wortpaar hinzu
-        
-        // TODO: Gib alle Wortpaare aus
+public class Aufgabe4 {
+    public static int readNumberFromFile(String filePath) throws DateiVerarbeitungException {
+        BufferedReader reader = null;
+        try {
+            // Versuche, die Datei zu öffnen und zu lesen
+            reader = new BufferedReader(new FileReader(filePath));
+            String line = reader.readLine();
+            
+            // Prüfe, ob die Datei leer ist
+            if (line == null) {
+                throw new DateiVerarbeitungException("Die Datei '" + filePath + "' ist leer.");
+            }
+            
+            // Versuche, den Inhalt in einen Integer umzuwandeln
+            return Integer.parseInt(line.trim());
+        } 
+        catch (FileNotFoundException e) {
+            // Spezifischer Fehler: Datei nicht gefunden
+            throw new DateiVerarbeitungException(
+                "Die Datei '" + filePath + "' wurde nicht gefunden.", e);
+        } 
+        catch (IOException e) {
+            // Allgemeiner Lesefehler
+            throw new DateiVerarbeitungException(
+                "Fehler beim Lesen der Datei '" + filePath + "'.", e);
+        } 
+        catch (NumberFormatException e) {
+            // Fehler bei der Umwandlung in eine Zahl
+            throw new DateiVerarbeitungException(
+                "Der Inhalt der Datei '" + filePath + "' ist keine gültige Zahl.", e);
+        } 
+        finally {
+            // Wichtig: Ressourcen immer schließen, unabhängig davon, ob ein Fehler auftrat
+            if (reader != null) {
+                try {
+                    reader.close();
+                } catch (IOException e) {
+                    System.out.println("⚠️ Warnung: Fehler beim Schließen der Datei.");
+                    // Wir werfen hier keine Exception, um den ursprünglichen Fehler nicht zu überdecken
+                }
+            }
+        }
     }
-}</code></pre>
-    </div>
-
-    <h2 id="methoden">4. Wichtige Collection-Methoden</h2>
-    
-    <p>Die Collections-Klasse bietet nützliche statische Methoden für Collections:</p>
-
-    <pre><code>import java.util.Collections;
-import java.util.ArrayList;
-import java.util.List;
-
-// Liste erstellen und befüllen
-List&lt;Integer&gt; zahlen = new ArrayList&lt;&gt;();
-zahlen.add(3);
-zahlen.add(1);
-zahlen.add(5);
-zahlen.add(2);
-
-// Sortieren
-Collections.sort(zahlen);
-System.out.println("Sortiert: " + zahlen);  // [1, 2, 3, 5]
-
-// Maximum und Minimum finden
-int max = Collections.max(zahlen);  // 5
-int min = Collections.min(zahlen);  // 1
-
-// Liste umkehren
-Collections.reverse(zahlen);
-System.out.println("Umgekehrt: " + zahlen);  // [5, 3, 2, 1]
-
-// Zufällige Anordnung
-Collections.shuffle(zahlen);
-System.out.println("Gemischt: " + zahlen);
-
-// Häufigkeit eines Elements
-int anzahl = Collections.frequency(zahlen, 3);  // Wie oft kommt 3 vor?</code></pre>
-
-    <div class="anleitung">
-        <h3>Schritt-für-Schritt: Verwenden der Collections-Klasse</h3>
-        <ol>
-            <li>Importiere die Collections-Klasse: <code>import java.util.Collections;</code></li>
-            <li>Erstelle und befülle eine Collection (z.B. ArrayList)</li>
-            <li>Nutze die statischen Methoden von Collections, z.B. <code>Collections.sort(liste)</code></li>
-            <li>Weitere nützliche Methoden: <code>max()</code>, <code>min()</code>, <code>reverse()</code>, <code>shuffle()</code></li>
-        </ol>
-    </div>
-
-    <div class="aufgabe">
-        <h3>Aufgabe 4: Noten verwalten</h3>
-        <p>Erstelle ein Programm zur Verwaltung von Noten:</p>
-        <ol>
-            <li>Erstelle eine ArrayList mit folgenden Noten: 2, 1, 3, 5, 2, 4, 1, 3</li>
-            <li>Sortiere die Noten</li>
-            <li>Gib die beste und die schlechteste Note aus</li>
-            <li>Berechne den Notendurchschnitt</li>
-            <li>Zähle, wie oft die Note 2 vorkommt</li>
-            <li>Mische die Noten und gib sie aus</li>
-        </ol>
-        
-        <p>Hier ist ein Gerüst zum Starten:</p>
-<pre><code>import java.util.ArrayList;
-import java.util.Collections;
-import java.util.List;
-
-public class Notenverwaltung {
-    public static void main(String[] args) {
-        // TODO: Erstelle eine ArrayList mit den Noten
-        
-        // TODO: Sortiere die Noten
-        
-        // TODO: Gib beste und schlechteste Note aus
-        
-        // TODO: Berechne den Notendurchschnitt
-        
-        // TODO: Zähle, wie oft die Note 2 vorkommt
-        
-        // TODO: Mische die Noten und gib sie aus
-    }
-}</code></pre>
-    </div>
-
-    <h2 id="fortgeschritten">5. Fortgeschrittene Aufgaben</h2>
-    
-    <div class="fortgeschritten">
-        <h3>Aufgabe 5: Häufigkeitsanalyse</h3>
-        <p>Schreibe ein Programm, das die Häufigkeit von Wörtern in einem Text analysiert:</p>
-        <ol>
-            <li>Definiere einen String mit einem längeren Text (mindestens 3 Sätze)</li>
-            <li>Teile den Text in einzelne Wörter auf (Hinweis: <code>String.split("\\s+")</code>)</li>
-            <li>Zähle, wie oft jedes Wort vorkommt, und speichere die Ergebnisse in einer HashMap</li>
-            <li>Gib die Wörter und deren Häufigkeit sortiert nach Häufigkeit aus (häufigstes Wort zuerst)</li>
-            <li>Ignoriere bei der Analyse Groß-/Kleinschreibung</li>
-        </ol>
-        
-        <p>Hier ist ein Gerüst zum Starten:</p>
-<pre><code>import java.util.*;
-
-public class Haeufigkeitsanalyse {
-    public static void main(String[] args) {
-        String text = "Dies ist ein Beispieltext. Dieser Text dient als Beispiel für eine Häufigkeitsanalyse. " +
-                     "In diesem Beispiel zählen wir, wie oft jedes Wort in diesem Text vorkommt.";
-        
-        // TODO: Text in Wörter aufteilen
-        
-        // TODO: Häufigkeit der Wörter zählen
-        
-        // TODO: Nach Häufigkeit sortieren und ausgeben
-    }
-}</code></pre>
-    </div>
-    
-    <div class="fortgeschritten">
-        <h3>Aufgabe 6: Kontaktverwaltung</h3>
-        <p>Implementiere ein Kontaktverwaltungssystem mit folgenden Funktionen:</p>
-        <ol>
-            <li>Erstelle eine Kontakt-Klasse mit Attributen für Name, Telefonnummer und E-Mail</li>
-            <li>Implementiere eine Kontaktverwaltung, die Kontakte in einer geeigneten Collection speichert</li>
-            <li>Ermögliche das Hinzufügen, Suchen und Löschen von Kontakten</li>
-            <li>Biete verschiedene Sortiermöglichkeiten (nach Name, nach Hinzufügungsdatum)</li>
-            <li>Implementiere eine Funktion zum Speichern der Favoriten</li>
-            <li>Bonus: Gruppiere Kontakte nach dem Anfangsbuchstaben des Namens</li>
-        </ol>
-
-        <p>Hier ist ein Gerüst zum Starten:</p>
-<pre><code>import java.util.*;
-
-class Kontakt {
-    private String name;
-    private String telefon;
-    private String email;
-    
-    // TODO: Konstruktor und Getter/Setter
-}
-
-public class Kontaktverwaltung {
-    // TODO: Collection für Kontakte wählen und implementieren
-    
-    // TODO: Methoden zum Hinzufügen, Suchen, Löschen
-    
-    // TODO: Sortiermethoden
-    
-    // TODO: Favoriten-Funktionalität
     
     public static void main(String[] args) {
-        // TODO: Teste deine Implementierung
+        String[] dateien = {
+            "zahl.txt",          // existiert und enthält eine gültige Zahl
+            "ungueltig.txt",     // existiert, enthält aber keine Zahl
+            "nichtExistent.txt"  // existiert nicht
+        };
+        
+        for (String datei : dateien) {
+            try {
+                int zahl = readNumberFromFile(datei);
+                System.out.println("✅ Gelesene Zahl aus " + datei + ": " + zahl);
+            } catch (DateiVerarbeitungException e) {
+                System.out.println("❌ Fehler bei der Verarbeitung: " + e.getMessage());
+                
+                // Zeige auch die ursprüngliche Exception an (falls vorhanden)
+                if (e.getCause() != null) {
+                    System.out.println("🔍 Ursprünglicher Fehler: " + e.getCause().getClass().getSimpleName() + 
+                                       " - " + e.getCause().getMessage());
+                }
+            }
+        }
     }
 }</code></pre>
-    </div>
-
-    <div class="fortgeschritten">
-        <h3>Aufgabe 7: Karten-Deck Simulation</h3>
-        <p>Erstelle eine Simulation für ein Kartenspiel:</p>
-        <ol>
-            <li>Definiere Klassen für Spielkarten (mit Farbe und Wert)</li>
-            <li>Implementiere eine Deck-Klasse, die ein vollständiges Kartenspiel (52 Karten) erzeugt</li>
-            <li>Füge Methoden zum Mischen, Ziehen und Zurücklegen von Karten hinzu</li>
-            <li>Implementiere eine Methode, die prüft, ob bestimmte Kombinationen im Deck sind (z.B. Paar, Drilling)</li>
-            <li>Simuliere ein einfaches Kartenspiel mit zwei Spielern</li>
-        </ol>
-
-        <p>Hier ist ein Gerüst zum Starten:</p>
-<pre><code>import java.util.*;
-
-enum Farbe { KARO, HERZ, PIK, KREUZ }
-enum Wert { ZWEI, DREI, VIER, FÜNF, SECHS, SIEBEN, ACHT, NEUN, ZEHN, BUBE, DAME, KÖNIG, ASS }
-
-class Karte {
-    private Farbe farbe;
-    private Wert wert;
-    
-    // TODO: Konstruktor und Getter
-}
-
-class Deck {
-    private List&lt;Karte&gt; karten;
-    
-    // TODO: Konstruktor, der ein vollständiges Deck erstellt
-    
-    // TODO: Methoden zum Mischen, Ziehen, Zurücklegen
-}
-
-public class Kartenspiel {
-    public static void main(String[] args) {
-        // TODO: Erstelle ein Deck und teste die Funktionen
+                    <div class="advanced-notes">
+                        <h5>Moderne Java-Alternative (Java 7+):</h5>
+                        <pre class="solution-code"><code>public static int readNumberFromFile(String filePath) throws DateiVerarbeitungException {
+    // Try-with-resources: Schließt die Ressource automatisch!
+    try (BufferedReader reader = new BufferedReader(new FileReader(filePath))) {
+        String line = reader.readLine();
+        
+        if (line == null) {
+            throw new DateiVerarbeitungException("Die Datei ist leer.");
+        }
+        
+        return Integer.parseInt(line.trim());
+    } 
+    catch (FileNotFoundException e) {
+        throw new DateiVerarbeitungException("Datei nicht gefunden: " + filePath, e);
+    } 
+    catch (NumberFormatException | IOException e) {
+        // Multi-catch für mehrere Exception-Typen
+        String message = (e instanceof NumberFormatException) ? 
+            "Keine gültige Zahl in der Datei." : 
+            "Fehler beim Lesen der Datei.";
+        throw new DateiVerarbeitungException(message + " Datei: " + filePath, e);
     }
 }</code></pre>
-    </div>
+                        <div class="tech-benefits">
+                            <p>Vorteile der modernen Version:</p>
+                            <ul>
+                                <li><strong>Try-with-resources</strong>: Schließt Ressourcen automatisch, weniger Code</li>
+                                <li><strong>Multi-catch</strong>: Erlaubt das Abfangen mehrerer Exception-Typen in einer Zeile</li>
+                                <li><strong>Weniger verschachtelte Blöcke</strong>: Macht den Code übersichtlicher</li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
 
-    <footer style="margin-top: 50px; font-size: 0.9em; color: #7f8c8d; text-align: center; border-top: 1px solid #eee; padding-top: 20px;">
-        <p>Schönes Wochenende</p>
+        <section id="zusammenfassung" class="card summary-card">
+            <h2>Zusammenfassung: Exception Handling</h2>
+            
+            <div class="summary-boxes">
+                <div class="summary-box">
+                    <h3>Die wichtigsten Konzepte</h3>
+                    <div class="concept-icon-list">
+                        <div class="concept-item">
+                            <div class="concept-icon">📦</div>
+                            <div class="concept-text">
+                                <strong>try-catch-finally</strong>
+                                <p>Der Grundbaustein für Exception Handling</p>
+                            </div>
+                        </div>
+                        <div class="concept-item">
+                            <div class="concept-icon">🧩</div>
+                            <div class="concept-text">
+                                <strong>Exception-Typen</strong>
+                                <p>Checked Exceptions (müssen behandelt werden) vs. Unchecked Exceptions</p>
+                            </div>
+                        </div>
+                        <div class="concept-item">
+                            <div class="concept-icon">🚨</div>
+                            <div class="concept-text">
+                                <strong>throw/throws</strong>
+                                <p>Exceptions auslösen und deklarieren</p>
+                            </div>
+                        </div>
+                        <div class="concept-item">
+                            <div class="concept-icon">🏗️</div>
+                            <div class="concept-text">
+                                <strong>Eigene Exceptions</strong>
+                                <p>Spezifische Fehlerklassen für deine Anwendung</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="summary-box tips-box">
+                    <h3>Tipps für die Praxis</h3>
+                    <ul class="tips-list">
+                        <li>Fange nur Exceptions, die du auch behandeln kannst</li>
+                        <li>Verwende spezifische Exception-Typen, nicht nur allgemein <code>Exception</code></li>
+                        <li>Schließe Ressourcen immer (im <code>finally</code>-Block oder mit try-with-resources)</li>
+                        <li>Wähle aussagekräftige Fehlermeldungen für bessere Fehlersuche</li>
+                    </ul>
+                </div>
+            </div>
+
+            <div class="next-steps">
+                <h3>Wie geht es weiter?</h3>
+                <p>Exception Handling ist ein wichtiger Baustein für robuste Programme. Als Nächstes könntest du dich mit diesen Themen beschäftigen:</p>
+                <div class="next-topics">
+                    <div class="next-topic">
+                        <div class="topic-icon">🧪</div>
+                        <div class="topic-text">Unit Testing mit JUnit</div>
+                    </div>
+                    <div class="next-topic">
+                        <div class="topic-icon">📋</div>
+                        <div class="topic-text">Logging-Frameworks (Log4j, SLF4J)</div>
+                    </div>
+                    <div class="next-topic">
+                        <div class="topic-icon">📂</div>
+                        <div class="topic-text">Fortgeschrittene File I/O mit NIO</div>
+                    </div>
+                    <div class="next-topic">
+                        <div class="topic-icon">👥</div>
+                        <div class="topic-text">Entwicklung mit mehreren Threads</div>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <footer class="footer">
+        <div class="container">
+            <p>© 2025 Java-Lernprogramm | Mit 💖 für neugierige Schüler erstellt</p>
+        </div>
     </footer>
+
+    <script src="js/main.js"></script>
 </body>
 </html>
